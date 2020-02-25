@@ -138,15 +138,12 @@ const BasicAddForm = props => {
     }
   };
 
-  const checkIfExists = (number, rowIndex, colIndex) => {
-    let rows = props.form.getFieldValue(`sudokuElement`);
-    let col = mapColElements(rows);
-    let box = makeSudokuBox(rows);
+  const checkIfExists = (number, row, column, box) => {
     if (number) {
       return (
-        rows[rowIndex].includes(number) ||
-        col[colIndex].includes(number) ||
-        box[boxIndex(rowIndex, colIndex)[0]].includes(number)
+        !row.includes(number) &&
+        !column.includes(number) &&
+        !box.includes(number)
       );
     }
   };
@@ -163,7 +160,6 @@ const BasicAddForm = props => {
       if (!err) {
         const solve = (mainRows, mainColumns, mainBoxes) => {
           setIsLoading(true);
-
           const calcSum = arr => {
             let sumArray = [];
             arr.forEach((item, index) => {
@@ -178,17 +174,12 @@ const BasicAddForm = props => {
             });
             return sumArray;
           };
-
           rowSum = calcSum(mainRows);
           finalSum = rowSum.reduce((acc, val) => {
             return acc + val;
           }, 0);
           var setValue = (bI, cI, rI, r, pn) => {
-            let condition =
-              !r?.includes(pn) &&
-              !mainColumns?.includes(pn) &&
-              !mainBoxes[bI]?.includes(pn);
-            if (condition) {
+            if (checkIfExists(pn, r, mainColumns[cI], mainBoxes[bI])) {
               props.form.setFieldsValue({
                 [`sudokuElement[${rI}][${cI}]`]: pn
               });
@@ -199,9 +190,12 @@ const BasicAddForm = props => {
               row instanceof Array &&
               row
                 ?.map((element, elementIndex) =>
-                  !row.includes(elementIndex + 1) &&
-                  !mainColumns[colIndex].includes(elementIndex + 1) &&
-                  !mainBoxes[boxIndex].includes(elementIndex + 1)
+                  checkIfExists(
+                    elementIndex + 1,
+                    row,
+                    mainColumns[colIndex],
+                    mainBoxes[boxIndex]
+                  )
                     ? elementIndex + 1
                     : 10
                 )
@@ -216,87 +210,15 @@ const BasicAddForm = props => {
             possibilities[rowIndex] = [];
             row.forEach((col, colIndex) => {
               possibilities[rowIndex][colIndex] = [];
-
               if (col === undefined) {
-                if (rowIndex < 3 && colIndex < 3) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    0,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (rowIndex < 3 && colIndex > 2 && colIndex < 6) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    1,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (rowIndex < 3 && colIndex > 5 && colIndex < 9) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    2,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (rowIndex > 2 && rowIndex < 6 && colIndex < 3) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    3,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (
-                  rowIndex > 2 &&
-                  rowIndex < 6 &&
-                  colIndex > 2 &&
-                  colIndex < 6
-                ) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    4,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (
-                  rowIndex > 2 &&
-                  rowIndex < 6 &&
-                  colIndex > 5 &&
-                  colIndex < 9
-                ) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    5,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (rowIndex > 5 && rowIndex < 9 && colIndex < 3) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    6,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else if (
-                  rowIndex > 5 &&
-                  rowIndex < 9 &&
-                  colIndex > 2 &&
-                  colIndex < 6
-                ) {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    7,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                } else {
-                  possibilities[rowIndex][colIndex] = setConfirmedNumber(
-                    8,
-                    colIndex,
-                    rowIndex,
-                    row
-                  );
-                }
+                let calIndex = colIndex < 3 ? 0 : colIndex > 5 ? 2 : 1;
+                let boxIndex = calIndex + (rowIndex - (rowIndex % 3));
+                possibilities[rowIndex][colIndex] = setConfirmedNumber(
+                  boxIndex,
+                  colIndex,
+                  rowIndex,
+                  row
+                );
               } else {
                 possibilities[rowIndex][colIndex] = [col];
               }
@@ -312,6 +234,7 @@ const BasicAddForm = props => {
 
         while (finalSum !== 405 && count > 0) {
           count--;
+          
           solve(rows, columns, boxes);
         }
 
@@ -320,12 +243,12 @@ const BasicAddForm = props => {
 
         const solveByIteration = () => {
           let upperIsSet = true;
-          for (let iterationCount = 0; iterationCount <= 15; iterationCount++) {
+          for (let iterationCount = 0; iterationCount <= 31; iterationCount++) {
             let binaryArray = [];
 
             const binary = converToBinary(iterationCount);
             binaryArray = binary.split("");
-            while (binaryArray.length !== 4) {
+            while (binaryArray.length !== 5) {
               binaryArray.unshift(0);
             }
             let reversedBinary = binaryArray.reverse();
@@ -342,7 +265,6 @@ const BasicAddForm = props => {
                         colIndex
                       ] === undefined
                     ) {
-                      console.log(col);
                       isSet = false;
                       props.form.setFieldsValue({
                         [`sudokuElement[${rowIndex}][${colIndex}]`]: col[
@@ -366,7 +288,7 @@ const BasicAddForm = props => {
                   });
                 });
               });
-              if (finalSum !== 405) {
+              if (finalSum === 405) { break }
                 props.form.setFieldsValue({
                   [`sudokuElement`]: firstIteration
                 });
@@ -381,9 +303,7 @@ const BasicAddForm = props => {
                     makeSudokuBox(currentRows)
                   );
                 }
-              }
             }
-            console.log(iterationCount, finalSum);
           }
         };
         solveByIteration();

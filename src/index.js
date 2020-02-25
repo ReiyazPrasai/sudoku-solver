@@ -8,13 +8,13 @@ import { Router } from "react-router-dom";
 
 import "./index.css";
 import App from "./containers/App";
-import history from "./utils/history"
+import history from "./utils/history";
 import * as serviceWorker from "./serviceWorker";
 
 const mountNode = document.getElementById("root");
 ReactDOM.render(
   <Router history={history}>
-    <App />
+      <App />
   </Router>,
   mountNode
 );

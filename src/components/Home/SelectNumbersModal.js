@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from "react";
 
 import { Button, Checkbox, Form, Modal, Row, Input, Icon } from "antd";
+import { setLocalStorage } from "../../utils/storageUtil";
 
 const FormItem = Form.Item;
 
 const SetNumber = props => {
-  const { isModalVisible, hideModal, selectedBox } = props;
+  const { isModalVisible, hideModal, selectedBox, setRows } = props;
+  const {getFieldValue, setFieldsValue} = props.form
   let numbers = [];
   let count = 1;
   let right = 0;
@@ -26,9 +28,10 @@ const SetNumber = props => {
   }
 
   const handleSetNumber = number => {
-    props.form.setFieldsValue({
+    setFieldsValue({
       [`sudokuElement[${selectedBox[0]}][${selectedBox[1]}]`]: number
     });
+    // setRows([...getFieldValue("sudokuElement")])
     hideModal();
   };
 

@@ -1,28 +1,55 @@
 .App {
   text-align: center;
-  background-image: url(background.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  padding: 7%;
 }
 
 .sudoku-table {
-  margin-bottom: 6%;
+  margin-top: 15%;
+  margin-bottom: 3%;
   background: rgba(0, 0, 0, 0.287);
   box-shadow: 7px 7px 12px black;
+}
+
+.undo {
+  margin-top: 5.6%;
+  margin-left: 1%;
+  float: right;
+}
+
+.undo-button {
+  height: 50px;
+  width: 50px;
+  color: white;
+  background: linear-gradient(
+    45deg,
+    rgb(58, 0, 0),
+    rgb(65, 2, 38),
+    rgb(58, 2, 65),
+    rgb(37, 2, 65),
+    rgb(37, 2, 65),
+    rgb(14, 2, 65),
+    rgb(2, 19, 65)
+  );
+  box-shadow: 7px 7px 12px black;
+  font-size: 2vh;
 }
 
 .solve-button {
   height: 50px;
   width: 300px;
-  color: black;
+  color: white;
+  margin-top: 7%;
+  font-size: 2vh;
   background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0),
-    rgba(126, 9, 9),
-    rgba(9, 73, 126)
+    45deg,
+    rgb(58, 0, 0),
+    rgb(65, 2, 38),
+    rgb(58, 2, 65),
+    rgb(37, 2, 65),
+    rgb(37, 2, 65),
+    rgb(14, 2, 65),
+    rgb(2, 19, 65)
   );
   box-shadow: 7px 7px 12px black;
 }
@@ -30,7 +57,7 @@
 .numbers {
   height: 80px;
   width: 80px;
-  font-size: 3vh;
+  font-size: 2vh;
   color: black;
   background: linear-gradient(45deg, rgb(65, 63, 63), white);
   box-shadow: 7px 7px 12px black;
@@ -104,13 +131,13 @@ td {
 
 .individual-box {
   font-size: 3vh;
-  color: white
+  color: white;
 }
 
-.ant-modal-body{
+.ant-modal-body {
   padding: 0px;
 }
 
-.ant-modal-content{
+.ant-modal-content {
   background: none;
 }

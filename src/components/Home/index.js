@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { Button, Col, Form, Row } from "antd";
+import { Button, Col, Form, Row, Icon } from "antd";
 
 import "./App.css";
 import SetNumber from "./SelectNumbersModal";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  clearLocalStorage
+} from "../../utils/storageUtil";
 
 const FormItem = Form.Item;
 
@@ -11,14 +16,16 @@ let sudokuRow = [];
 const BasicAddForm = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [rows, setRows] = useState([])
+  const {
+    getFieldDecorator,
+    getFieldValue,
+    setFieldsValue,
+    resetFields,
+    validateFields
+  } = props.form;
 
   const [selectedBox, setSelectBox] = useState([]);
-
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
 
   const boxIndex = (rowIndex, colIndex) => {
     let calIndex = colIndex < 3 ? 0 : colIndex > 5 ? 2 : 1;
@@ -31,9 +38,10 @@ const BasicAddForm = props => {
   for (let i = 0; i <= 8; i++) {
     sudokuRow[i] = [];
     for (let j = 0; j <= 8; j++) {
-      sudokuRow[i][j] = getRandomInt(1, 10);
+      sudokuRow[i][j] = [];
     }
   }
+
   const mapColElements = valueRow => {
     let sudokuCol = [];
     for (let colIndex = 0; colIndex <= 8; colIndex++) {
@@ -126,7 +134,7 @@ const BasicAddForm = props => {
   };
 
   const checkForDuplicates = (number, rowIndex, colIndex) => {
-    let rows = props.form.getFieldValue(`sudokuElement`);
+    let rows = getFieldValue(`sudokuElement`);
     let col = mapColElements(rows);
     let box = makeSudokuBox(rows);
     if (number) {
@@ -148,15 +156,26 @@ const BasicAddForm = props => {
     }
   };
 
+  const comparePreviousIteration = (count, array) => {
+    if (count < 20) {
+      let currentValue = JSON.stringify(array);
+      let previousValue = JSON.stringify(getLocalStorage("previousValue"));
+      setLocalStorage("previousValue", array);
+      return currentValue === previousValue;
+    }
+    setLocalStorage("previousValue", array);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     let finalSum = 0;
     let rowSum = [];
     let possibilities = [];
-    let rows = props.form.getFieldValue("sudokuElement");
+    let rows = getFieldValue("sudokuElement");
+    setRows(rows);
     let columns = mapColElements(rows);
     let boxes = makeSudokuBox(rows);
-    props.form.validateFields((err, values) => {
+    validateFields((err, values) => {
       if (!err) {
         const solve = (mainRows, mainColumns, mainBoxes) => {
           setIsLoading(true);
@@ -180,7 +199,7 @@ const BasicAddForm = props => {
           }, 0);
           var setValue = (bI, cI, rI, r, pn) => {
             if (checkIfExists(pn, r, mainColumns[cI], mainBoxes[bI])) {
-              props.form.setFieldsValue({
+              setFieldsValue({
                 [`sudokuElement[${rI}][${cI}]`]: pn
               });
             }
@@ -224,17 +243,19 @@ const BasicAddForm = props => {
               }
             });
           });
-          rows = props.form.getFieldValue("sudokuElement");
+          rows = getFieldValue("sudokuElement");
           columns = mapColElements(rows);
           boxes = makeSudokuBox(rows);
           rowSum = [];
         };
 
-        let count = 40;
+        let count = 20;
 
         while (finalSum !== 405 && count > 0) {
+          if (comparePreviousIteration(count, rows)) {
+            break;
+          }
           count--;
-          
           solve(rows, columns, boxes);
         }
 
@@ -261,23 +282,23 @@ const BasicAddForm = props => {
                     if (
                       col.length === 2 &&
                       isSet &&
-                      props.form.getFieldValue("sudokuElement")[rowIndex][
-                        colIndex
-                      ] === undefined
+                      getFieldValue("sudokuElement")[rowIndex][colIndex] ===
+                        undefined
                     ) {
                       isSet = false;
-                      props.form.setFieldsValue({
+                      setFieldsValue({
                         [`sudokuElement[${rowIndex}][${colIndex}]`]: col[
                           parseInt(set)
                         ]
                       });
 
-                      let count = 15;
+                      let count = 20;
                       while (count > 0) {
                         count--;
-                        let currentRows = props.form.getFieldValue(
-                          "sudokuElement"
-                        );
+                        let currentRows = getFieldValue("sudokuElement");
+                        if (comparePreviousIteration(count, currentRows)) {
+                          break;
+                        }
                         solve(
                           currentRows,
                           mapColElements(currentRows),
@@ -288,26 +309,31 @@ const BasicAddForm = props => {
                   });
                 });
               });
-              if (finalSum === 405) { break }
-                props.form.setFieldsValue({
-                  [`sudokuElement`]: firstIteration
-                });
-                upperIsSet = true;
-                let count = 40;
-                while (count > 0) {
-                  count--;
-                  let currentRows = firstIteration;
-                  solve(
-                    currentRows,
-                    mapColElements(currentRows),
-                    makeSudokuBox(currentRows)
-                  );
+              if (finalSum === 405) {
+                break;
+              }
+              setFieldsValue({
+                [`sudokuElement`]: firstIteration
+              });
+              upperIsSet = true;
+              let count = 20;
+              while (count > 0) {
+                count--;
+                let currentRows = firstIteration;
+                if (comparePreviousIteration(count, currentRows)) {
+                  break;
                 }
+                solve(
+                  currentRows,
+                  mapColElements(currentRows),
+                  makeSudokuBox(currentRows)
+                );
+              }
             }
           }
         };
         solveByIteration();
-
+        clearLocalStorage("previousValue");
         setIsLoading(false);
       }
     });
@@ -318,152 +344,98 @@ const BasicAddForm = props => {
       <Form onSubmit={handleSubmit}>
         <div className="sudoku-table">
           <table>
-            {sudokuRow.map((row, rowIndex) => (
-              <tr
-                className={"sudoku-row"}
-                key={rowIndex}
-                style={{ height: 80 }}
-              >
-                {row.map((col, colIndex) => (
-                  <td
-                    className={"sudoku-col"}
-                    key={colIndex}
-                    id={`el${rowIndex}${colIndex}`}
-                    style={{
-                      minWidth: 80,
-                      background:
-                        checkForDuplicates(
-                          props.form.getFieldValue(
-                            `sudokuElement[${rowIndex}][${colIndex}]`
-                          ),
-                          rowIndex,
-                          colIndex
-                        ) && "black"
-                    }}
-                    onMouseEnter={() => handleOnMouseEnter(rowIndex, colIndex)}
-                    onMouseLeave={() => handleOnMouseLeave(rowIndex, colIndex)}
-                  >
-                    <div
+            <tbody>
+              {sudokuRow.map((row, rowIndex) => (
+                <tr
+                  className={"sudoku-row"}
+                  key={rowIndex}
+                  style={{ height: 80 }}
+                >
+                  {row.map((col, colIndex) => (
+                    <td
+                      className={"sudoku-col"}
+                      key={colIndex}
+                      id={`el${rowIndex}${colIndex}`}
                       style={{
-                        height: 80,
-                        minWidth: "100%"
+                        minWidth: 80,
+                        background:
+                          checkForDuplicates(
+                            getFieldValue(
+                              `sudokuElement[${rowIndex}][${colIndex}]`
+                            ),
+                            rowIndex,
+                            colIndex
+                          ) && "black"
                       }}
-                    >
-                      {
-                        <FormItem style={{ width: 55 }}>
-                          {props.form.getFieldDecorator(
-                            `sudokuElement[${rowIndex}][${colIndex}]`,
-                            {
-                              initialValue:
-                                rowIndex === 0 && colIndex === 2
-                                  ? 6
-                                  : rowIndex === 0 && colIndex === 8
-                                  ? 8
-                                  : rowIndex === 1 && colIndex === 0
-                                  ? 4
-                                  : rowIndex === 1 && colIndex === 4
-                                  ? 6
-                                  : rowIndex === 1 && colIndex === 5
-                                  ? 1
-                                  : rowIndex === 1 && colIndex === 8
-                                  ? 2
-                                  : rowIndex === 2 && colIndex === 5
-                                  ? 2
-                                  : rowIndex === 2 && colIndex === 6
-                                  ? 6
-                                  : rowIndex === 2 && colIndex === 7
-                                  ? 4
-                                  : rowIndex === 3 && colIndex === 0
-                                  ? 9
-                                  : rowIndex === 3 && colIndex === 2
-                                  ? 3
-                                  : rowIndex === 3 && colIndex === 4
-                                  ? 5
-                                  : rowIndex === 3 && colIndex === 7
-                                  ? 2
-                                  : rowIndex === 4 && colIndex === 0
-                                  ? 1
-                                  : rowIndex === 4 && colIndex === 2
-                                  ? 5
-                                  : rowIndex === 4 && colIndex === 6
-                                  ? 4
-                                  : rowIndex === 4 && colIndex === 8
-                                  ? 7
-                                  : rowIndex === 5 && colIndex === 1
-                                  ? 4
-                                  : rowIndex === 5 && colIndex === 4
-                                  ? 9
-                                  : rowIndex === 5 && colIndex === 6
-                                  ? 1
-                                  : rowIndex === 5 && colIndex === 8
-                                  ? 5
-                                  : rowIndex === 6 && colIndex === 1
-                                  ? 6
-                                  : rowIndex === 6 && colIndex === 2
-                                  ? 4
-                                  : rowIndex === 6 && colIndex === 3
-                                  ? 3
-                                  : rowIndex === 7 && colIndex === 0
-                                  ? 7
-                                  : rowIndex === 7 && colIndex === 3
-                                  ? 8
-                                  : rowIndex === 7 && colIndex === 4
-                                  ? 1
-                                  : rowIndex === 7 && colIndex === 8
-                                  ? 4
-                                  : rowIndex === 8 && colIndex === 0
-                                  ? 8
-                                  : rowIndex === 8 && colIndex === 6
-                                  ? 7
-                                  : undefined
-                            }
-                          )(
-                            <div className={"individual-box"}>
-                              <Button
-                                style={{ width: 80, height: 80 }}
-                                type="link"
-                                onClick={() =>
-                                  handleOpenNumberPad(rowIndex, colIndex)
-                                }
-                              >
-                                <span
-                                  className={"individual-box"}
-                                  style={{
-                                    color: checkForDuplicates(
-                                      props.form.getFieldValue(
-                                        `sudokuElement[${rowIndex}][${colIndex}]`
-                                      ),
-                                      rowIndex,
-                                      colIndex
-                                    )
-                                      ? "red"
-                                      : "white"
-                                  }}
-                                >
-                                  {props.form.getFieldValue(
-                                    `sudokuElement[${rowIndex}][${colIndex}]`
-                                  )}
-                                </span>
-                              </Button>
-                            </div>
-                          )}
-                        </FormItem>
+                      onMouseEnter={() =>
+                        handleOnMouseEnter(rowIndex, colIndex)
                       }
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            ))}
+                      onMouseLeave={() =>
+                        handleOnMouseLeave(rowIndex, colIndex)
+                      }
+                    >
+                      <div
+                        style={{
+                          height: 80,
+                          minWidth: "100%"
+                        }}
+                      >
+                        {
+                          <FormItem style={{ width: 55 }}>
+                            {getFieldDecorator(
+                              `sudokuElement[${rowIndex}][${colIndex}]`,
+                              {
+
+                              }
+                            )(
+                              <div className={"individual-box"}>
+                                <Button
+                                  style={{ width: 80, height: 80 }}
+                                  type="link"
+                                  onClick={() =>
+                                    handleOpenNumberPad(rowIndex, colIndex)
+                                  }
+                                >
+                                  <span
+                                    className={"individual-box"}
+                                    style={{
+                                      color: checkForDuplicates(
+                                        getFieldValue(
+                                          `sudokuElement[${rowIndex}][${colIndex}]`
+                                        ),
+                                        rowIndex,
+                                        colIndex
+                                      )
+                                        ? "red"
+                                        : "white"
+                                    }}
+                                  >
+                                    {getFieldValue(
+                                      `sudokuElement[${rowIndex}][${colIndex}]`
+                                    )}
+                                  </span>
+                                </Button>
+                              </div>
+                            )}
+                          </FormItem>
+                        }
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
           </table>
           <SetNumber
             selectedBox={selectedBox}
+            setRows={setRows}
             isModalVisible={isModalVisible}
             hideModal={handleModalHide}
             {...props}
           />
         </div>
         <Row type="flex">
-          <Col xl={24} lg={24} md={24} sm={24}>
+          <Col xl={12} lg={24} md={24} sm={24}>
             <FormItem>
               <Button
                 loading={isLoading}
@@ -475,8 +447,33 @@ const BasicAddForm = props => {
               </Button>
             </FormItem>
           </Col>
+          <Col xl={12} lg={24} md={24} sm={24}>
+            <FormItem>
+              <Button
+                className={"solve-button"}
+                type="primary"
+                onClick={() => resetFields()}
+              >
+                clear
+              </Button>
+            </FormItem>
+          </Col>
         </Row>
       </Form>
+      <div className={"undo"}>
+        <Button
+          className={"undo-button"}
+          type="primary"
+          onClick={() =>{console.log(rows)}
+            // setFieldsValue({
+            //   [`sudokuElement`]: rows
+            // })
+
+          }
+        >
+          <Icon style={{ marginBottom: 10 }} type="undo" />
+        </Button>
+      </div>
     </div>
   );
 };

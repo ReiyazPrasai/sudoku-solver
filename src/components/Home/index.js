@@ -460,20 +460,19 @@ const BasicAddForm = props => {
           </Col>
         </Row>
       </Form>
-      <div className={"undo"}>
+      {/* <div className={"undo"}>
         <Button
           className={"undo-button"}
           type="primary"
           onClick={() =>{console.log(rows)}
-            // setFieldsValue({
-            //   [`sudokuElement`]: rows
-            // })
-
+            setFieldsValue({
+              [`sudokuElement`]: rows                        TODO
+            })
           }
         >
           <Icon style={{ marginBottom: 10 }} type="undo" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

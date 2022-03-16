@@ -1,0 +1,48 @@
+.page-wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.grid-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.j-c {
+  display: flex;
+  justify-content: center;
+}
+
+.j-c:nth-child(3),
+.j-c:nth-child(6) {
+  margin-bottom: 4px;
+}
+
+.j-c :nth-child(3),
+.j-c :nth-child(6) {
+  margin-right: 4px;
+}
+
+.solve-button {
+  height: 60px;
+  width: 200px;
+  font-size: 18px;
+  color: white;
+  background-color: burlywood;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  box-shadow: #32325d6e 0px 0px 5px -1px, rgba(0, 0, 0, 0.507) 0px 0px 3px -1px;
+}
+
+.solve-button:active {
+  box-shadow: #32325d6e 0px 0px 4px -1px, rgba(0, 0, 0, 0.507) 0px 0px 3px -1px;
+  transform: scale(0.99);
+}

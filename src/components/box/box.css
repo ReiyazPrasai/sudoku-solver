@@ -1,0 +1,33 @@
+.box {
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: #32325d6e 0px 0px 5px -1px, rgba(0, 0, 0, 0.507) 0px 0px 3px -1px;
+  margin: 3px;
+  opacity: 1;
+  color: white;
+  font-size: 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, aqua, turquoise);
+}
+
+.box:focus {
+  outline: none;
+  position: static;
+  transform: scale(1.1);
+  opacity: 0.7;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 0px 6px -1px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px -1px;
+  z-index: 10001;
+  cursor: pointer;
+}
+
+.box:hover {
+  opacity: 0.7;
+
+  outline: none;
+}

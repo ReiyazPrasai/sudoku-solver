@@ -1,0 +1,407 @@
+{
+  "r0,c0,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c1,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c2,q0": {
+    "current": 4,
+    "previous": 4,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c3,q1": {
+    "current": 7,
+    "previous": 7,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c4,q1": {
+    "current": 5,
+    "previous": 5,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c5,q1": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c6,q2": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c7,q2": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r0,c8,q2": {
+    "current": 3,
+    "previous": 3,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c0,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c1,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c2,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c3,q1": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c4,q1": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c5,q1": {
+    "current": 8,
+    "previous": 8,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c6,q2": {
+    "current": 4,
+    "previous": 4,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c7,q2": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r1,c8,q2": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c0,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c1,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c2,q0": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c3,q1": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c4,q1": {
+    "current": 6,
+    "previous": 6,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c5,q1": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c6,q2": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c7,q2": {
+    "current": 7,
+    "previous": 7,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r2,c8,q2": {
+    "current": 5,
+    "previous": 5,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c0,q3": {
+    "current": 6,
+    "previous": 6,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c1,q3": {
+    "current": 3,
+    "previous": 3,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c2,q3": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c3,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c4,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c5,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c6,q5": {
+    "current": 5,
+    "previous": 5,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c7,q5": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r3,c8,q5": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c0,q3": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c1,q3": {
+    "current": 8,
+    "previous": 8,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c2,q3": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c3,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c4,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c5,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c6,q5": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c7,q5": {
+    "current": 6,
+    "previous": 6,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r4,c8,q5": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c0,q3": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c1,q3": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c2,q3": {
+    "current": 5,
+    "previous": 5,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c3,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c4,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c5,q4": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c6,q5": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c7,q5": {
+    "current": 9,
+    "previous": 9,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r5,c8,q5": {
+    "current": 1,
+    "previous": 1,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c0,q6": {
+    "current": 8,
+    "previous": 8,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c1,q6": {
+    "current": 4,
+    "previous": 4,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c2,q6": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c3,q7": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c4,q7": {
+    "current": 3,
+    "previous": 3,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c5,q7": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c6,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c7,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r6,c8,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c0,q6": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c1,q6": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c2,q6": {
+    "current": 9,
+    "previous": 9,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c3,q7": {
+    "current": 8,
+    "previous": 8,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c4,q7": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c5,q7": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c6,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c7,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r7,c8,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c0,q6": {
+    "current": 3,
+    "previous": 3,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c1,q6": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c2,q6": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c3,q7": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c4,q7": {
+    "current": 9,
+    "previous": 9,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c5,q7": {
+    "current": 7,
+    "previous": 7,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c6,q8": {
+    "current": 1,
+    "previous": 1,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c7,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  },
+  "r8,c8,q8": {
+    "current": null,
+    "previous": null,
+    "background": "linear-gradient(135deg, aqua, turquoise)"
+  }
+}
